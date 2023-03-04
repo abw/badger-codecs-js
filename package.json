@@ -1,0 +1,49 @@
+{
+  "name": "@abw/badger-codecs",
+  "version": "1.0.1",
+  "description": "Wrapper functions for encoding/decoding data",
+  "type": "module",
+  "main": "dist/badger-codecs.cjs.js",
+  "module": "dist/badger-codecs.esm.js",
+  "exports": "./dist/badger-codecs.esm.js",
+  "author": "Andy Wardley",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abw/badger-codecs-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/abw/badger-codecs-js/issues"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "lint": "eslint 'src/**/*'",
+    "test": "ava --serial",
+    "pretest": "pnpm run build"
+  },
+  "keywords": [
+    "badger",
+    "codecs",
+    "encode",
+    "decode",
+    "json",
+    "yaml",
+    "base64"
+  ],
+  "dependencies": {
+    "@abw/badger-utils": "^1.0.16",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "ava": "^5.2.0",
+    "eslint": "^8.35.0",
+    "rollup": "^3.18.0"
+  }
+}
