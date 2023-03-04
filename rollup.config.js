@@ -5,7 +5,7 @@ import pkg from './package.json' assert { type: 'json' };
 
 export default [
   {
-    input: 'src/inex.js',
+    input: 'src/index.js',
     output: [
       {
         file: pkg.main,
@@ -31,7 +31,6 @@ export default [
       "js-yaml",
       "node:buffer"
     ],
-    onwarn,
   }
 ];
 
