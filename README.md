@@ -59,7 +59,7 @@ const encoded = myCodec.encode(data);
 const decoded = myCodec.decode(encoded);
 ```
 
-The only thing that need to change is the line that selects the codec.
+The only thing that needs to change is the line that selects the codec.
 
 A typical example of use is where you have a function that expects to be
 passed a data file.  You can look at the file extension so see if it's
