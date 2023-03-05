@@ -9,16 +9,15 @@ Install `badger-codecs` using your favourite package manager.
 
 ### npm
 
-    npm install @abw/badger-codecs
+npm add @abw/badger-codecs
 
 ### pnpm
 
-    pnpm install @abw/badger-codecs
+pnpm add @abw/badger-codecs
 
 ### yarn
 
-    yarn add @abw/badger-codecs
-
+yarn add @abw/badger-codecs
 
 # Why?
 
