@@ -91,6 +91,31 @@ The `encode()` function will apply the `encode()` function for each of the
 chanined codecs in sequence.  The `decode()` function will apply the
 `decode()` function for each of them, but in reverse order.
 
+## Codec Configuration
+
+Each code also includes a `config` function which can be used to set the
+global configuration options for the codec.
+
+For the `json` codec the only option is `space` to set the number of spaces
+for the indent level.  The default is 2.
+
+```js
+import codec from '@abw/badger-codecs'
+const json = codec('json');
+json.config({ space: 4 });
+```
+
+For the `yaml` code the configuration options are used when encoding YAML.
+These include `indent` for the indent level (default is 2) and any of the
+other options supported by the `dump()` method of
+[js-yaml](https://www.npmjs.com/package/js-yaml).
+
+```js
+import codec from '@abw/badger-codecs'
+const yaml = codec('yaml');
+yaml.config({ indent: 4 });
+```
+
 ## Adding Codecs
 
 The module exports an `addCodec()` function which can be used to register
