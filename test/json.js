@@ -2,6 +2,7 @@ import test from 'ava';
 import { codec } from '../src/index.js';
 
 const json = codec('json');
+json.config({ space: 0 });
 
 test(
   'json codec encode() function',
