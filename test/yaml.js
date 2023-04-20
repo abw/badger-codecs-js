@@ -16,3 +16,18 @@ test(
   t => t.is(yaml.decode("msg: Hello World").msg, "Hello World")
 );
 
+const yml = codec('yml');
+
+test(
+  'yml codec loaded',
+  t => t.is( typeof yml.encode, 'function')
+);
+test(
+  'yml codec encode() function',
+  t => t.is(yml.encode([1, 2, 3]), "- 1\n- 2\n- 3\n")
+);
+test(
+  'yml codec decode() function',
+  t => t.is(yml.decode("msg: Hello World").msg, "Hello World")
+);
+

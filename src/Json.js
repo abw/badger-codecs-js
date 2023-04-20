@@ -1,10 +1,14 @@
-let options = {
+let defaults = {
   space: 2
 };
-const encode = data => JSON.stringify(data, null, options.space);
-const decode = text => JSON.parse(text);
-const config = opts => Object.assign(options, opts);
 
-export const jsonCodec = { encode, decode, config };
+const config = opts => Object.assign(defaults, opts);
+const decode = text => JSON.parse(text);
+
+export const jsonCodec = (options={}) => {
+  const merged = { ...defaults, ...options }
+  const encode = data => JSON.stringify(data, null, merged.space);
+  return { encode, decode, config };
+}
 
 export default jsonCodec

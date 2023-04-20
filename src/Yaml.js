@@ -1,13 +1,16 @@
 import yaml from 'js-yaml';
 
-let options = {
+let defaults = {
   indent: 2
 };
 
-const encode = data => yaml.dump(data, options);
+const config = opts => Object.assign(defaults, opts)
 const decode = text => yaml.load(text);
-const config = opts => Object.assign(options, opts)
 
-export const yamlCodec = { encode, decode, config };
+export const yamlCodec = (options={}) => {
+  const merged = { ...defaults, ...options }
+  const encode = data => yaml.dump(data, merged);
+  return { encode, decode, config }
+}
 
 export default yamlCodec

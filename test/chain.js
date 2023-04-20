@@ -1,9 +1,7 @@
 import test from 'ava';
 import { codec } from '../src/index.js';
 
-const json = codec('json');
-const jb64 = codec('json+base64');
-json.config({ space: 0 });
+const jb64 = codec('json+base64', { space: 0 });
 
 test(
   'json + base64 codec encode() function',

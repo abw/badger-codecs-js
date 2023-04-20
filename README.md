@@ -36,14 +36,14 @@ const encoded = yaml.dump(data);
 const decoded = yaml.load(encoded);
 ```
 
-This module provides a `codec()` method for selecting a codec.  The codec
+This module provides a `codec()` function for selecting a codec.  The codec
 returned has `encode()` and `decode()` functions which are wrappers around
 the appropriate code for the format.
 
 For JSON:
 
 ```js
-import codec from '@abw/badger-codecs'
+import { codec } from '@abw/badger-codecs'
 const myCodec = codec('json');
 const encoded = myCodec.encode(data);
 const decoded = myCodec.decode(encoded);
@@ -52,7 +52,7 @@ const decoded = myCodec.decode(encoded);
 Or for YAML:
 
 ```js
-import codec from '@abw/badger-codecs'
+import { codec } from '@abw/badger-codecs'
 const myCodec = codec('yaml');
 const encoded = myCodec.encode(data);
 const decoded = myCodec.decode(encoded);
@@ -75,34 +75,40 @@ The `yaml` codec is for encoding/decoding YAML.
 
 The `base64` codec is for encoding/decoding UTF8 text to and from Base64.
 
+The `yml` codec is provided as an alias for `yaml`, and `jsn` as an alias for
+`json`.  It's quite common to see YAML files with a `.yml` extension so this
+simplifies the process of selecting a codec using the file extension.  I've
+never see a JSON file with a `.jsn` extension in the wild, but it's provided
+for the sake of consistency.
+
 ## Chained Codecs
 
 You can chain multiple codecs together with `+`.  For example, a codec to
 JSON encode some data and then Base64 encode it would be `json+base64`.
 
 ```js
-import codec from '@abw/badger-codecs'
+import { codec } from '@abw/badger-codecs'
 const myCodec = codec('json+base64');
 const encoded = myCodec.encode(data);
 const decoded = myCodec.decode(encoded);
 ```
 
 The `encode()` function will apply the `encode()` function for each of the
-chanined codecs in sequence.  The `decode()` function will apply the
+chained codecs in sequence.  The `decode()` function will apply the
 `decode()` function for each of them, but in reverse order.
 
 ## Codec Configuration
 
-Each code also includes a `config` function which can be used to set the
-global configuration options for the codec.
+The `codec()` function takes an optional second argument as an object of
+configuration options.
 
 For the `json` codec the only option is `space` to set the number of spaces
 for the indent level.  The default is 2.
 
 ```js
-import codec from '@abw/badger-codecs'
-const json = codec('json');
-json.config({ space: 4 });
+import { codec } from '@abw/badger-codecs'
+
+const json = codec('json', { space: 4 });   // set space to 4
 ```
 
 For the `yaml` code the configuration options are used when encoding YAML.
@@ -111,16 +117,35 @@ other options supported by the `dump()` method of
 [js-yaml](https://www.npmjs.com/package/js-yaml).
 
 ```js
-import codec from '@abw/badger-codecs'
-const yaml = codec('yaml');
-yaml.config({ indent: 4 });
+import { codec } from '@abw/badger-codecs'
+
+const yaml = codec('yaml', { indent: 4 });
+```
+
+## Global Configuration
+
+The `codecConfig()` function can be used to set the global configuration
+defaults for a codec.  Note that any changes made will only affect codecs
+created after that point.  You can still override the defaults by providing
+a configuration when you create the codec.
+
+```js
+import { codec, codecConfig } from '@abw/badger-codecs'
+
+const json2 = codec('json')                 // has default space of 2
+
+codecConfig('json', { space: 4 })           // set default space to 4
+
+const json4 = codec('json')                 // has default space of 4
+const json3 = codec('json', { space: 3 })   // explicit space of 3
 ```
 
 ## Adding Codecs
 
 The module exports an `addCodec()` function which can be used to register
-a new codec.  It expects three arguments: the codec name, an `encode()`
-function and a `decode()` function.
+a new codec.  It expects three or four arguments: the codec name, an
+`encode()` function, a `decode()` function and an optional `config()`
+function to set the configuration defaults.
 
 This trivial example shows how a codec can be registered for "encoding" text
 as upper case, and then "decoding" it back to lower case.
