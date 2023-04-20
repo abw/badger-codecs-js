@@ -1,6 +1,6 @@
 {
   "name": "@abw/badger-codecs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Wrapper functions for encoding/decoding data",
   "type": "module",
   "main": "dist/badger-codecs.cjs.js",
