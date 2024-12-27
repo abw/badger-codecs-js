@@ -29,7 +29,7 @@ hero:
 ---
 ## Who Ordered This?
 
-This module implements objects to simplify and standardise the encoding and
+This module implements objects to simplify and standardise encoding and
 decoding data to and from serialised text.
 
 ## Opinionated and Selfish Software
