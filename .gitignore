@@ -2,4 +2,7 @@
 node_modules
 .pnpm-debug.log
 dist
+tmp
+website/.vitepress/cache
+website/.vitepress/dist
 
