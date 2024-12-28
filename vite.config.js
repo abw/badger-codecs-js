@@ -1,9 +1,13 @@
 import { defineConfig } from 'vite'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import dts from 'vite-plugin-dts'
 
 export default defineConfig({
   plugins: [
-    dts()
+    dts(),
+    nodePolyfills({
+      include: ['buffer']
+    })
   ],
   build: {
     sourcemap: true,
@@ -11,12 +15,17 @@ export default defineConfig({
       entry: 'src/index.ts',
       name: '@abw/badger-codecs',
       fileName: 'badger-codecs',
-      formats: [ 'es', 'cjs']
+      // formats: [ 'es', 'cjs']
     },
     rollupOptions: {
       external: [
         "node:buffer",
       ],
+      output: {
+        globals: {
+          'node:buffer': 'node_buffer'
+        }
+      }
     }
   },
   test: {
