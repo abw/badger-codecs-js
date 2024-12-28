@@ -1,4 +1,4 @@
-import { Codec, Config, Decoder, Encoder } from './types'
+import { CodecFunction, Config, Decoder, Encoder } from './types'
 
 const defaults = {
   space: 2
@@ -7,7 +7,7 @@ const defaults = {
 const config: Config = opts => Object.assign(defaults, opts)
 const decode: Decoder = text => JSON.parse(text)
 
-export const jsonCodec: Codec = (options={}) => {
+export const jsonCodec: CodecFunction = (options={}) => {
   const merged = { ...defaults, ...options }
 
   const encode: Encoder = data =>
