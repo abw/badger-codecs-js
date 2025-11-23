@@ -35,8 +35,8 @@ export const codecChain = (chain: string, options: ConfigObject) => {
       (result, codec) => codec.decode(result),
       data
     )
-
-  return { encode, decode }
+  const config: Config = opts => Object.assign({ }, opts)
+  return { encode, decode, config }
 }
 
 // export default codecs
