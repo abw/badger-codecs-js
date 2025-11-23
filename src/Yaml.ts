@@ -1,4 +1,4 @@
-import yaml from 'js-yaml'
+import { parse, stringify } from 'yaml'
 import { CodecFunction, Config, Decoder, Encoder } from './types'
 
 const defaults = {
@@ -6,11 +6,11 @@ const defaults = {
 }
 
 const config: Config = opts => Object.assign(defaults, opts)
-const decode: Decoder = text => yaml.load(text)
+const decode: Decoder = text => parse(text)
 
 export const yamlCodec: CodecFunction = (options={}) => {
   const merged = { ...defaults, ...options }
-  const encode: Encoder = data => yaml.dump(data, merged)
+  const encode: Encoder = data => stringify(data, undefined, merged)
   return { encode, decode, config }
 }
 
